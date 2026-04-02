@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Mirror AI</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+<div class="mirror">
+
+  <div class="scan-line"></div>
+  <div class="corner tl"></div><div class="corner tr"></div>
+  <div class="corner bl"></div><div class="corner br"></div>
+
+  <!-- TOP LEFT: Clock -->
+  <section class="zone z-tl">
+    <div class="clock" id="clock">00:00:00</div>
+    <div class="date"  id="date">Loading...</div>
+  </section>
+
+  <!-- TOP CENTER: Orb + Greeting -->
+  <section class="zone z-tc">
+    <div class="orb" id="orb" title="Click for briefing">
+      <svg viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="12" stroke="white" stroke-width="1" opacity=".5"/>
+        <circle cx="16" cy="16" r="5"  fill="white" opacity=".9"/>
+        <line x1="16" y1="4"  x2="16" y2="10" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="16" y1="22" x2="16" y2="28" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="4"  y1="16" x2="10" y2="16" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="22" y1="16" x2="28" y2="16" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="greeting" id="greeting">Welcome</div>
+    <div class="face-row">
+      <span class="face-dot" id="fdot"></span>
+      <span class="face-lbl" id="flbl">Initializing...</span>
+    </div>
+  </section>
+
+  <!-- TOP RIGHT: Weather -->
+  <section class="zone z-tr">
+    <div class="w-temp" id="wtemp">--°C</div>
+    <div class="w-desc" id="wdesc">Loading weather...</div>
+    <div class="w-sub"  id="wsub"></div>
+    <div class="w-loc"  id="wloc">Gurugram, IN</div>
+  </section>
+
+  <!-- MIDDLE: AI Chat -->
+  <section class="zone z-mid">
+    <div class="chat-box">
+      <div class="msgs" id="msgs">
+        <div class="msg bot">Hello! I'm ARIA, your smart mirror assistant powered by Groq AI. Ask me anything — tap the orb for a morning briefing!</div>
+      </div>
+      <div class="input-row">
+        <input id="inp" class="inp" type="text" placeholder="Ask ARIA anything... (or press /)" autocomplete="off"/>
+        <button id="send-btn" class="btn-send">SEND</button>
+        <button id="mic-btn"  class="btn-mic" title="Voice input">🎤</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM LEFT: Schedule -->
+  <section class="zone z-bl">
+    <div class="label">Today's Schedule</div>
+    <div id="events">
+      <div class="ev"><span class="ev-t">09:30</span><span class="ev-dot"></span><span class="ev-x">Team standup</span></div>
+      <div class="ev"><span class="ev-t">13:00</span><span class="ev-dot"></span><span class="ev-x">Lunch break</span></div>
+      <div class="ev"><span class="ev-t">14:00</span><span class="ev-dot"></span><span class="ev-x">Product review</span></div>
+      <div class="ev"><span class="ev-t">17:00</span><span class="ev-dot"></span><span class="ev-x">Weekly report due</span></div>
+      <div class="ev"><span class="ev-t">19:30</span><span class="ev-dot"></span><span class="ev-x">Evening workout</span></div>
+    </div>
+  </section>
+
+  <!-- BOTTOM CENTER: Health -->
+  <section class="zone z-bc">
+    <div class="label">Health</div>
+    <div class="health">
+      <div class="hrow">
+        <span class="hico">❤️</span>
+        <span class="hval" id="hr">72</span>
+        <span class="hunit">bpm</span>
+        <div class="hbar"><div class="hfill" id="hr-bar" style="width:72%;background:#ff5040"></div></div>
+      </div>
+      <div class="hrow">
+        <span class="hico">🚶</span>
+        <span class="hval" id="steps">6,240</span>
+        <span class="hunit">steps</span>
+        <div class="hbar"><div class="hfill" style="width:62%;background:#3090ff"></div></div>
+      </div>
+      <div class="hrow">
+        <span class="hico">😴</span>
+        <span class="hval" id="sleep">7.4h</span>
+        <span class="hunit">sleep</span>
+        <div class="hbar"><div class="hfill" style="width:74%;background:#20e8a0"></div></div>
+      </div>
+      <div class="hrow">
+        <span class="hico">🔥</span>
+        <span class="hval" id="cal">1,840</span>
+        <span class="hunit">kcal</span>
+        <div class="hbar"><div class="hfill" style="width:55%;background:#ffaa20"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM RIGHT: Quick Info -->
+  <section class="zone z-br">
+    <div class="label">Weather Details</div>
+    <div class="qinfo">
+      <div class="qrow"><span class="ql">Humidity</span>   <span class="qv" id="humidity">--</span></div>
+      <div class="qrow"><span class="ql">Wind</span>        <span class="qv" id="wind">--</span></div>
+      <div class="qrow"><span class="ql">Feels Like</span> <span class="qv" id="feels">--</span></div>
+      <div class="qrow"><span class="ql">Sunrise</span>    <span class="qv" id="sunrise">--</span></div>
+      <div class="qrow"><span class="ql">Sunset</span>     <span class="qv" id="sunset">--</span></div>
+    </div>
+  </section>
+
+  <!-- NEWS TICKER -->
+  <div class="ticker-wrap">
+    <span class="ticker-tag">NEWS</span>
+    <div class="ticker-clip">
+      <div class="ticker-inner" id="ticker">Loading news...</div>
+    </div>
+  </div>
+
+</div><!-- /mirror -->
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

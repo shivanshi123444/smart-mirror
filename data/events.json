@@ -1,0 +1,9 @@
+{
+  "2026-04-02": [
+    { "time": "10:00", "title": "Morning yoga" },
+    { "time": "15:00", "title": "Client call" }
+  ],
+  "default": [
+    { "time": "09:00", "title": "Daily standup" }
+  ]
+}
